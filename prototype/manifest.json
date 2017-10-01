@@ -1,0 +1,13 @@
+{
+    "name": "ri-prototype",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "とりあえずChrome拡張を作ってみるぞ",
+    "content_scripts": [
+        {
+        "matches": ["http://*.jp/*"],
+        "js": ["test.js"],
+        "run_at": "document_idle"
+        }
+    ]
+}
