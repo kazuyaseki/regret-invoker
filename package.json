@@ -1,0 +1,12 @@
+{
+  "name": "regret-invoker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kazuyaseki/regret-invoker.git",
+  "author": "kazuya-seki <track613armory@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "prettier": "^1.7.4",
+    "vuejs": "^1.0.29"
+  }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "regret-invoker",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "余計なものを見ないようにしよう♪",
+    "permissions": [
+        "storage",
+        "identity",
+        "*://*.google.com/*"
+    ],
+    "content_scripts": [{
+            "matches": ["*://*/*"],
+            "js": ["measurement.js"]
+    }],
+    "browser_action": {
+        "default_title": "Regret Invoker"
+    },
+    "background": {
+        "scripts": [ "icon_clicked.js" ], 
+        "persistent": false
+    }
+}
