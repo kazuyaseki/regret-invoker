@@ -1,7 +1,7 @@
 //定数ファイルを計測用のJSと表示用のJSで共有とかできないので、各ファイルの先頭で定数定義する
 const SITE_DOMAIN_KEY = "#site_url";
 const DATA_KEY = "#data";
-const key_name_suffix = "_times_sec";
+const key_name_suffix = "_times_msec";
 
 function getKey(){
     let current_date = new Date();
@@ -39,7 +39,7 @@ function initMeasurementData(data, host_name, key){
 
         let key = getKey();        
         initMeasurementData(data, host_name, key);
-        data[host_name][key].push( Math.floor(Date.now * 1000));
+        data[host_name][key].push(Date.now * 1000);
 
         let save_data = {};
         save_data[DATA_KEY] = data;
