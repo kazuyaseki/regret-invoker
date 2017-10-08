@@ -7,6 +7,15 @@
         <link rel="icon" href="#">
     </head>
     <body>
-        <script src="index.js"></script>
+        <div id="vue-root">
+            <ul id="site-urls">
+                <li v-for="siteUrl in siteUrls" @click="addSiteUrl( true )">
+                    {{ siteUrl }}
+                </li>
+            </ul>
+        </div>
+
+        <script src="src/vue.js"></script>
+        <script src="src/app.js"></script>
     </body>
 </html>
