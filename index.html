@@ -13,6 +13,10 @@
                     {{ siteUrl }}
                 </li>
             </ul>
+            <div id="site-url-register">
+                <input type="text" v-model="siteUrlText"/>
+                <button @click="registerSiteUrl()">登録</button>
+            </div>
         </div>
 
         <script src="src/vue.js"></script>

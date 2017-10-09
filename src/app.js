@@ -3,12 +3,14 @@ const SITE_DOMAIN_KEY = "#site_url";
 const DATA_KEY = "#data";
 const keyNameSuffix = "_times_msec";
 
-var initialSiteUrls;
-chrome.storage.sync.get(SITE_DOMAIN_KEY, (value) => { initialSiteUrls = value; console.log(initialSiteUrls);})
-var example1 = new Vue({
+function loadSiteUrls(callback) {
+    chrome.storage.sync.get(SITE_DOMAIN_KEY, callback );
+}
+
+var siteUrls = new Vue({
     el: '#site-urls',
     data: {
-        siteUrls: initialSiteUrls
+        siteUrls: []
     },
     methods: {
         addSiteUrl: function ( value ) {
@@ -16,7 +18,34 @@ var example1 = new Vue({
         }
     }
 })
+loadSiteUrls( ( value ) => { siteUrls.siteUrls = value; } );
 
+var siteUrlRegister = new Vue({
+    el: '#site-url-register',
+    data: {
+        siteUrlText: ""
+    },
+    methods: {
+        registerSiteUrl: function () {
+            let text =  this.$data.siteUrlText;
+            loadSiteUrls( ( value ) => { 
+                let urls = value[SITE_DOMAIN_KEY];
+                if(!urls || !Array.isArray(urls)){
+                    urls = [];
+                }
+                urls.push(text);
+
+                let saveData = {}
+                saveData[SITE_DOMAIN_KEY] = urls;
+                chrome.storage.sync.set(saveData);
+
+                siteUrls.siteUrls = urls;
+                this.$data.siteUrlText = "";                
+            } );
+        }
+    }
+})
+/*
 var componentRoot = new Vue({
     template: '<div>hello!</div>',
     components: {
@@ -24,4 +53,4 @@ var componentRoot = new Vue({
 });
 
 // 要素にマウントする
-componentRoot.$mount( '#vue-root' );
+componentRoot.$mount( '#vue-root' );*/
