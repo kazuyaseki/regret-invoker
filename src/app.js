@@ -4,53 +4,46 @@ const DATA_KEY = "#data";
 const keyNameSuffix = "_times_msec";
 
 function loadSiteUrls(callback) {
-    chrome.storage.sync.get(SITE_DOMAIN_KEY, callback );
+  chrome.storage.sync.get(SITE_DOMAIN_KEY, callback);
 }
 
 var siteUrls = new Vue({
-    el: '#site-urls',
-    data: {
-        siteUrls: []
-    },
-    methods: {
-        addSiteUrl: function ( value ) {
-            this.$data.siteUrls.push(value);
-        }
+  el: "#site-urls",
+  data: {
+    siteUrls: []
+  },
+  methods: {
+    addSiteUrl: function(value) {
+      this.$data.siteUrls.push(value);
     }
-})
-loadSiteUrls( ( value ) => { siteUrls.siteUrls = value; } );
-
-var siteUrlRegister = new Vue({
-    el: '#site-url-register',
-    data: {
-        siteUrlText: ""
-    },
-    methods: {
-        registerSiteUrl: function () {
-            let text =  this.$data.siteUrlText;
-            loadSiteUrls( ( value ) => { 
-                let urls = value[SITE_DOMAIN_KEY];
-                if(!urls || !Array.isArray(urls)){
-                    urls = [];
-                }
-                urls.push(text);
-
-                let saveData = {}
-                saveData[SITE_DOMAIN_KEY] = urls;
-                chrome.storage.sync.set(saveData);
-
-                siteUrls.siteUrls = urls;
-                this.$data.siteUrlText = "";                
-            } );
-        }
-    }
-})
-/*
-var componentRoot = new Vue({
-    template: '<div>hello!</div>',
-    components: {
-    }
+  }
+});
+loadSiteUrls(value => {
+  siteUrls.siteUrls = value;
 });
 
-// 要素にマウントする
-componentRoot.$mount( '#vue-root' );*/
+var siteUrlRegister = new Vue({
+  el: "#site-url-register",
+  data: {
+    siteUrlText: ""
+  },
+  methods: {
+    registerSiteUrl: function() {
+      let text = this.$data.siteUrlText;
+      loadSiteUrls(value => {
+        let urls = value[SITE_DOMAIN_KEY];
+        if (!urls || !Array.isArray(urls)) {
+          urls = [];
+        }
+        urls.push(text);
+
+        let saveData = {};
+        saveData[SITE_DOMAIN_KEY] = urls;
+        chrome.storage.sync.set(saveData);
+
+        siteUrls.siteUrls = urls;
+        this.$data.siteUrlText = "";
+      });
+    }
+  }
+});
