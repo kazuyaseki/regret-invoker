@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>余計なものを見ないようにしよう♪</title>
-        <link rel="stylesheet" href="#">
-        <link rel="icon" href="#">
-    </head>
-    <body>
-        <div id="vue-root">
-            <ul id="site-urls">
-                <li v-for="siteUrl in siteUrls" @click="addSiteUrl( true )">
-                    {{ siteUrl }}
-                </li>
-            </ul>
-            <div id="site-url-register">
-                <input type="text" v-model="siteUrlText"/>
-                <button @click="registerSiteUrl()">登録</button>
-            </div>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>余計なものを見ないようにしよう♪</title>
+    <link rel="stylesheet" href="#">
+    <link rel="icon" href="#">
+</head>
+
+<body>
+    <div id="vue-root">
+        <ul id="site-urls">
+            <li v-for="siteUrl in siteUrls" @click="addSiteUrl( true )">
+                {{ siteUrl }}
+            </li>
+        </ul>
+        <div id="site-url-register">
+            <input type="text" v-model="siteUrlText" />
+            <button @click="registerSiteUrl()">登録</button>
         </div>
 
-        <script src="src/vue.js"></script>
-        <script src="src/app.js"></script>
-    </body>
+        <ul id="view-counts">
+            <h3>本日の閲覧回数</h3>
+            <li v-for="(item, key) in viewDatas">
+                {{ key }} - {{ renderCounts(item) }}
+                <h4>閲覧した時間</h4>
+                {{ renderViewTimes(item) }}
+            </li>
+        </ul>
+    </div>
+
+    <script src="src/vue.js"></script>
+    <script src="src/app.js"></script>
+</body>
+
 </html>

@@ -3,8 +3,8 @@ const SITE_DOMAIN_KEY = "#site_url";
 const DATA_KEY = "#data";
 const keyNameSuffix = "_times_msec";
 
-function loadSiteUrls(callback) {
-  chrome.storage.sync.get(SITE_DOMAIN_KEY, callback);
+function loadDataFromChromeStorage(key, callback) {
+  chrome.storage.sync.get(key, callback);
 }
 
 var siteUrls = new Vue({
@@ -18,7 +18,7 @@ var siteUrls = new Vue({
     }
   }
 });
-loadSiteUrls(value => {
+loadDataFromChromeStorage(SITE_DOMAIN_KEY, value => {
   siteUrls.siteUrls = value;
 });
 
@@ -30,7 +30,7 @@ var siteUrlRegister = new Vue({
   methods: {
     registerSiteUrl: function() {
       let text = this.$data.siteUrlText;
-      loadSiteUrls(value => {
+      loadDataFromChromeStorage(SITE_DOMAIN_KEY, value => {
         let urls = value[SITE_DOMAIN_KEY];
         if (!urls || !Array.isArray(urls)) {
           urls = [];
@@ -47,3 +47,48 @@ var siteUrlRegister = new Vue({
     }
   }
 });
+
+var viewCountList = new Vue({
+  el: "#view-counts",
+  data: {
+    viewDatas: []
+  },
+  methods: {
+    renderCounts: function(viewData) {
+      let today_date = getTodayYYYYMMDDString();
+      for (let date in viewData) {
+        let yyyymmdd_str = date.substring(0, 8);
+        if (yyyymmdd_str === today_date) {
+          return viewData[date].length;
+        }
+      }
+    },
+    renderViewTimes: function(viewData) {
+      //TODO: こういう処理の共有みたいなののスマートな方法ないか調べる。
+      let today_date = getTodayYYYYMMDDString();
+      for (let date in viewData) {
+        let yyyymmdd_str = date.substring(0, 8);
+        if (yyyymmdd_str === today_date) {
+          let times = [];
+          for (let time of viewData[date]) {
+            times.push(new Date(time / 1000).toLocaleString());
+          }
+
+          return times;
+        }
+      }
+    }
+  }
+});
+loadDataFromChromeStorage(DATA_KEY, value => {
+  viewCountList.viewDatas = value[DATA_KEY];
+});
+
+function getTodayYYYYMMDDString() {
+  let current_date = new Date();
+  return (
+    current_date.getFullYear() +
+    ("00" + (current_date.getMonth() + 1)).slice(-2) +
+    ("00" + current_date.getDate()).slice(-2)
+  );
+}
