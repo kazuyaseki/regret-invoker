@@ -7,6 +7,15 @@ function loadDataFromChromeStorage(key, callback) {
   chrome.storage.sync.get(key, callback);
 }
 
+function getTodayYYYYMMDDString() {
+  let current_date = new Date();
+  return (
+    current_date.getFullYear() +
+    ("00" + (current_date.getMonth() + 1)).slice(-2) +
+    ("00" + current_date.getDate()).slice(-2)
+  );
+}
+
 var siteUrls = new Vue({
   el: "#site-urls",
   data: {
@@ -81,12 +90,3 @@ var viewCountList = new Vue({
 loadDataFromChromeStorage(DATA_KEY, value => {
   viewCountList.viewDatas = value[DATA_KEY];
 });
-
-function getTodayYYYYMMDDString() {
-  let current_date = new Date();
-  return (
-    current_date.getFullYear() +
-    ("00" + (current_date.getMonth() + 1)).slice(-2) +
-    ("00" + current_date.getDate()).slice(-2)
-  );
-}
