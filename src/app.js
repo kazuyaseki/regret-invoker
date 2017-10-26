@@ -57,8 +57,7 @@ var viewCountList = new Vue({
     renderCounts: function(viewData) {
       let today_date = getTodayYYYYMMDDString();
       for (let date in viewData) {
-        let yyyymmdd_str = date.substring(0, 8);
-        if (yyyymmdd_str === today_date) {
+        if (date.indexOf(today_date) >= 0) {
           return viewData[date].length;
         }
       }
@@ -67,8 +66,7 @@ var viewCountList = new Vue({
       //TODO: こういう処理の共有みたいなののスマートな方法ないか調べる。
       let today_date = getTodayYYYYMMDDString();
       for (let date in viewData) {
-        let yyyymmdd_str = date.substring(0, 8);
-        if (yyyymmdd_str === today_date) {
+        if (date.indexOf(today_date) >= 0) {
           let times = [];
           for (let time of viewData[date]) {
             times.push(new Date(time / 1000).toLocaleString());
