@@ -1,12 +1,5 @@
-function getKey() {
-  let current_date = new Date();
-  let yyyymmdd_str =
-    current_date.getFullYear() +
-    ('00' + (current_date.getMonth() + 1)).slice(-2) +
-    ('00' + current_date.getDate()).slice(-2);
-  return yyyymmdd_str + key_name_suffix;
-}
 import { STORAGE_KEYS, KEY_NAME_SUFFIX } from "./constants/constants";
+import { getTodayYYYYMMDDString } from "./utils/util";
 
 function initMeasurementData(data, host_name, key) {
   if (!data[host_name]) {
@@ -40,7 +33,7 @@ function initMeasurementData(data, host_name, key) {
       chrome.storage.sync.get(DATA_KEY, value => {
         let data = value[STORAGE_KEYS.data] ? value[STORAGE_KEYS.data] : {};
 
-        let key = getKey();
+        let key = getTodayYYYYMMDDString() + KEY_NAME_SUFFIX;
         initMeasurementData(data, host_name, key);
         data[host_name][key].push(Date.now() * 1000);
 
