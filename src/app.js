@@ -17,7 +17,7 @@ function pageTitleFactory(key, content){
 Vue.component('sidebar-item', {
   props: ['title'],
   template: 
-    `<div>
+    `<div class="sidebar-item">
       {{ title.content }}
      </div>`
 });
