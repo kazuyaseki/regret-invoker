@@ -1,9 +1,26 @@
+import Vue from 'vue';
+
 import { STORAGE_KEYS, KEY_NAME_SUFFIX } from "./constants/constants";
 import { getTodayYYYYMMDDString } from "./utils/util";
 
 function loadDataFromChromeStorage(key, callback) {
   chrome.storage.sync.get(key, callback);
 }
+
+function pageTitleFactory(key, content){
+  return {
+    key,
+    content
+  };
+}
+
+Vue.component('sidebar-item', {
+  props: ['title'],
+  template: 
+    `<div>
+      {{ title.content }}
+     </div>`
+});
 
 var siteUrls = new Vue({
   el: "#site-urls",
@@ -78,4 +95,17 @@ var viewCountList = new Vue({
 });
 loadDataFromChromeStorage(STORAGE_KEYS.data, value => {
   viewCountList.viewDatas = value[STORAGE_KEYS.data];
+});
+
+var app  = new Vue({
+  el: "#app-root",
+  data: {
+    pageTitles: [
+      pageTitleFactory("viewData", "閲覧データ"),
+      pageTitleFactory("siteUrl", "計測対象サイト")
+    ]
+  },
+  methods: {
+    renderCounts: function(viewData) {}
+  }
 });

@@ -9,7 +9,11 @@
 </head>
 
 <body>
-    <div id="vue-root">
+    <div id="app-root">
+        <aside>
+            <sidebar-item v-for="title in pageTitles"  v-bind:title="title">
+        </aside>
+
         <ul id="site-urls">
             <li v-for="siteUrl in siteUrls" @click="addSiteUrl( true )">
                 {{ siteUrl }}
@@ -30,8 +34,7 @@
         </ul>
     </div>
 
-    <script src="src/vue.js"></script>
-    <script src="src/app.js"></script>
+    <script src="dist/app.js"></script>
 </body>
 
 </html>
