@@ -11,7 +11,10 @@ module.exports = {
       filename: "[name].js"
   },
   resolve: {
-      extensions: [ ".js" ]
+    alias: {
+      vue: 'vue/dist/vue.js'
+    },
+    extensions: [ ".js" ]
   },
   module: {
       loaders: [
