@@ -1,8 +1,3 @@
-//定数ファイルを計測用のJSと表示用のJSで共有とかできないので、各ファイルの先頭で定数定義する
-const SITE_DOMAIN_KEY = '#site_url';
-const DATA_KEY = '#data';
-const key_name_suffix = '_times_msec';
-
 function getKey() {
   let current_date = new Date();
   let yyyymmdd_str =
@@ -11,6 +6,7 @@ function getKey() {
     ('00' + current_date.getDate()).slice(-2);
   return yyyymmdd_str + key_name_suffix;
 }
+import { STORAGE_KEYS, KEY_NAME_SUFFIX } from "./constants/constants";
 
 function initMeasurementData(data, host_name, key) {
   if (!data[host_name]) {
@@ -24,8 +20,8 @@ function initMeasurementData(data, host_name, key) {
 
 (function() {
   //登録サイト情報を引き出す
-  chrome.storage.sync.get(SITE_DOMAIN_KEY, value => {
-    let urls = value[SITE_DOMAIN_KEY];
+  chrome.storage.sync.get(STORAGE_KEYS.siteUrl, value => {
+    let urls = value[STORAGE_KEYS.siteUrl];
     if (!urls || !Array.isArray(urls)) {
       urls = [];
     }
@@ -42,14 +38,14 @@ function initMeasurementData(data, host_name, key) {
                 }
             */
       chrome.storage.sync.get(DATA_KEY, value => {
-        let data = value[DATA_KEY] ? value[DATA_KEY] : {};
+        let data = value[STORAGE_KEYS.data] ? value[STORAGE_KEYS.data] : {};
 
         let key = getKey();
         initMeasurementData(data, host_name, key);
         data[host_name][key].push(Date.now() * 1000);
 
         let save_data = {};
-        save_data[DATA_KEY] = data;
+        save_data[STORAGE_KEYS.data] = data;
         chrome.storage.sync.set(save_data);
       });
     }

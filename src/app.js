@@ -1,7 +1,4 @@
-//定数ファイルを計測用のJSと表示用のJSで共有とかできないので、各ファイルの先頭で定数定義する
-const SITE_DOMAIN_KEY = "#site_url";
-const DATA_KEY = "#data";
-const keyNameSuffix = "_times_msec";
+import { STORAGE_KEYS, KEY_NAME_SUFFIX } from "./constants/constants";
 
 function loadDataFromChromeStorage(key, callback) {
   chrome.storage.sync.get(key, callback);
@@ -27,7 +24,7 @@ var siteUrls = new Vue({
     }
   }
 });
-loadDataFromChromeStorage(SITE_DOMAIN_KEY, value => {
+loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
   siteUrls.siteUrls = value;
 });
 
@@ -39,15 +36,15 @@ var siteUrlRegister = new Vue({
   methods: {
     registerSiteUrl: function() {
       let text = this.$data.siteUrlText;
-      loadDataFromChromeStorage(SITE_DOMAIN_KEY, value => {
-        let urls = value[SITE_DOMAIN_KEY];
+      loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
+        let urls = value[STORAGE_KEYS.siteUrl];
         if (!urls || !Array.isArray(urls)) {
           urls = [];
         }
         urls.push(text);
 
         let saveData = {};
-        saveData[SITE_DOMAIN_KEY] = urls;
+        saveData[STORAGE_KEYS.siteUrl] = urls;
         chrome.storage.sync.set(saveData);
 
         siteUrls.siteUrls = urls;
@@ -87,6 +84,6 @@ var viewCountList = new Vue({
     }
   }
 });
-loadDataFromChromeStorage(DATA_KEY, value => {
-  viewCountList.viewDatas = value[DATA_KEY];
+loadDataFromChromeStorage(STORAGE_KEYS.data, value => {
+  viewCountList.viewDatas = value[STORAGE_KEYS.data];
 });
