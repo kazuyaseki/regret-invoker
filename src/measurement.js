@@ -22,14 +22,6 @@ function initMeasurementData(data, host_name, key) {
     //訪れたサイトのURLが対象サイト内の場合、計測する
     let host_name = document.location.hostname;
     if (urls.indexOf(host_name) >= 0) {
-      /*
-                `data` は以下のフォーマット
-                {
-                    domain_name:{
-                        yyyymmdd_times_sec: number[]
-                    }
-                }
-            */
       chrome.storage.sync.get(DATA_KEY, value => {
         let data = value[STORAGE_KEYS.data] ? value[STORAGE_KEYS.data] : {};
 
