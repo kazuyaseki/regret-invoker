@@ -17,9 +17,14 @@ function pageTitleFactory(key, content){
 Vue.component('sidebar-item', {
   props: ['title'],
   template: 
-    `<div class="sidebar-item">
+    `<div class="sidebar-item"  @click="changeScreen">
       {{ title.content }}
-     </div>`
+     </div>`,
+  methods: {
+    changeScreen() {
+      this.$emit('changescreen', this.title.key);
+    }
+  },
 });
 
 var siteUrls = new Vue({
@@ -51,10 +56,7 @@ var siteUrlRegister = new Vue({
           urls = [];
         }
         urls.push(text);
-
-        let saveData = {};
-        saveData[STORAGE_KEYS.siteUrl] = urls;
-        chrome.storage.sync.set(saveData);
+        chrome.storage.sync.set({ [STORAGE_KEYS.siteUrl]: urls });
 
         siteUrls.siteUrls = urls;
         this.$data.siteUrlText = "";
