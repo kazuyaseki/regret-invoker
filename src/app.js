@@ -15,9 +15,9 @@ function pageTitleFactory(key, content){
 }
 
 Vue.component('sidebar-item', {
-  props: ['title'],
+  props: ['title', 'isActive'],
   template: 
-    `<div class="sidebar-item"  @click="changeScreen">
+    `<div v-bind:class="[isActive ? 'sidebar-item' : 'unselected-sidebar-item']"  @click="changeScreen">
       {{ title.content }}
      </div>`,
   methods: {

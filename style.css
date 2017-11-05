@@ -29,9 +29,20 @@ aside{
   padding: 15px 8px;
   font-size: 14px;
   color: #666;
+}
+
+.unselected-sidebar-item {
+  border-bottom: 1px solid #EFEFEF;
+  margin: 0px;
+  padding: 15px 8px;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.sidebar-item:last-child{
+.unselected-sidebar-item:hover{
+  background-color: #eee;
+}
+
+.sidebar-item:last-child, .unselected-sidebar-item:last-child{
   border:none;
 }

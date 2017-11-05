@@ -12,7 +12,7 @@
     <h1>Regret Invoker</h1>
     <div id="app-root">
         <aside>
-            <sidebar-item v-for="title in pageTitles"  v-bind:title="title" @changeScreen="currentScreenKey = $event">
+            <sidebar-item v-for="title in pageTitles" :title="title" :is-active="currentScreenKey === title.key" @changeScreen="currentScreenKey = $event">
         </aside>
 
         <div v-if="currentScreenKey === 'viewData'">
