@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { STORAGE_KEYS, KEY_NAME_SUFFIX } from "./constants/constants";
+import { SCREEN_KEYS, STORAGE_KEYS } from "./constants/constants";
 import { getTodayYYYYMMDDString } from "./utils/util";
 
 function loadDataFromChromeStorage(key, callback) {
@@ -101,9 +101,10 @@ var app  = new Vue({
   el: "#app-root",
   data: {
     pageTitles: [
-      pageTitleFactory("viewData", "閲覧データ"),
-      pageTitleFactory("siteUrl", "計測対象サイト")
-    ]
+      pageTitleFactory(SCREEN_KEYS.viewData, "閲覧データ"),
+      pageTitleFactory(SCREEN_KEYS.siteUrl, "計測対象サイト")
+    ],
+    currentScreenKey: SCREEN_KEYS.viewData
   },
   methods: {
     renderCounts: function(viewData) {}
