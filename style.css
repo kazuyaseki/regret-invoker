@@ -129,3 +129,9 @@ aside{
 .fixed-width-cell{
   width: 50px;
 }
+
+.action-cell{
+  text-decoration: underline;
+  color: #0000ff;
+  cursor: pointer;
+}
