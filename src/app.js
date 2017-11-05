@@ -75,17 +75,19 @@ var app  = new Vue({
   methods: {
     registerSiteUrl: function() {
       let text = this.$data.siteUrlInput;
-      loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
-        let urls = value[STORAGE_KEYS.siteUrl];
-        if (!urls || !Array.isArray(urls)) {
-          urls = [];
-        }
-        urls.push(text);
-        chrome.storage.sync.set({ [STORAGE_KEYS.siteUrl]: urls });
-
-        this.$data.siteUrls = urls;
-        this.$data.siteUrlInput = "";
-      });
+      if(text.trim().length > 0){
+        loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
+          let urls = value[STORAGE_KEYS.siteUrl];
+          if (!urls || !Array.isArray(urls)) {
+            urls = [];
+          }
+          urls.push(text);
+          chrome.storage.sync.set({ [STORAGE_KEYS.siteUrl]: urls });
+  
+          this.$data.siteUrls = urls;
+          this.$data.siteUrlInput = "";
+        });  
+      }
     }
   }
 });
