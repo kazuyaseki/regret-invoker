@@ -27,15 +27,24 @@
         </div>
 
         <div v-if="currentScreenKey === 'siteUrl'">
-            <ul id="site-urls">
-                <li v-for="siteUrl in siteUrls" @click="addSiteUrl( true )">
-                    {{ siteUrl }}
-                </li>
-            </ul>
             <div id="site-url-register">
-                <input type="text" v-model="siteUrlText" />
+                <input type="text" v-model="siteUrlInput" />
                 <button @click="registerSiteUrl()">登録</button>
             </div>
+            <table id="site-urls">
+                <thead>
+                    <tr>
+                        <th>ホスト名</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="siteUrl in siteUrls">
+                        <td>{{ siteUrl }}</td>
+                        <td @click="deleteSiteUrl( true )">削除</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>

@@ -27,44 +27,6 @@ Vue.component('sidebar-item', {
   },
 });
 
-var siteUrls = new Vue({
-  el: "#site-urls",
-  data: {
-    siteUrls: []
-  },
-  methods: {
-    addSiteUrl: function(value) {
-      this.$data.siteUrls.push(value);
-    }
-  }
-});
-loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
-  siteUrls.siteUrls = value;
-});
-
-var siteUrlRegister = new Vue({
-  el: "#site-url-register",
-  data: {
-    siteUrlText: ""
-  },
-  methods: {
-    registerSiteUrl: function() {
-      let text = this.$data.siteUrlText;
-      loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
-        let urls = value[STORAGE_KEYS.siteUrl];
-        if (!urls || !Array.isArray(urls)) {
-          urls = [];
-        }
-        urls.push(text);
-        chrome.storage.sync.set({ [STORAGE_KEYS.siteUrl]: urls });
-
-        siteUrls.siteUrls = urls;
-        this.$data.siteUrlText = "";
-      });
-    }
-  }
-});
-
 var viewCountList = new Vue({
   el: "#view-counts",
   data: {
@@ -106,9 +68,28 @@ var app  = new Vue({
       pageTitleFactory(SCREEN_KEYS.viewData, "閲覧データ"),
       pageTitleFactory(SCREEN_KEYS.siteUrl, "計測対象サイト")
     ],
-    currentScreenKey: SCREEN_KEYS.viewData
+    currentScreenKey: SCREEN_KEYS.viewData,
+    siteUrlInput: "",
+    siteUrls: []
   },
   methods: {
-    renderCounts: function(viewData) {}
+    registerSiteUrl: function() {
+      let text = this.$data.siteUrlInput;
+      loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
+        let urls = value[STORAGE_KEYS.siteUrl];
+        if (!urls || !Array.isArray(urls)) {
+          urls = [];
+        }
+        urls.push(text);
+        chrome.storage.sync.set({ [STORAGE_KEYS.siteUrl]: urls });
+
+        this.$data.siteUrls = urls;
+        this.$data.siteUrlInput = "";
+      });
+    }
   }
+});
+
+loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
+  app.siteUrls = value[STORAGE_KEYS.siteUrl];
 });
