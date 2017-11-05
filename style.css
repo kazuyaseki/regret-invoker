@@ -18,9 +18,14 @@ h1 {
   grid-template-columns: 240px 1fr;
 }
 
+/*********************
+       Sidebar
+*********************/
+
 aside{
   grid-row: 1;
   grid-column: 1;
+  margin-right: 15px;
 }
 
 .sidebar-item{
@@ -45,4 +50,81 @@ aside{
 
 .sidebar-item:last-child, .unselected-sidebar-item:last-child{
   border:none;
+}
+
+/*********************
+       Main共通
+*********************/
+.main{
+  width: 100%;
+  padding: 10px 8px;
+}
+
+.text-input-field{
+  border-radius: 8px;
+  border: 1px solid #d2d2d2;
+  width: 200px;
+  padding: 5px 8px;
+}
+
+.text-input-field:focus{
+  outline: none;
+}
+
+.form-button{
+  padding: 2px 16px;
+  text-decoration: none;
+  color: #67c5ff;
+  font-weight: bold;
+  background-color: #fff;
+  border: solid 2px #67c5ff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background: #67c5ff;
+  color: white;
+}
+
+.form-button:focus{
+  outline:none;
+}
+
+/*********************
+    計測対象サイト
+*********************/
+#site-url-register{
+  margin-bottom: 20px;
+}
+
+#site-urls{
+  width: 480px;
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
+}
+
+#site-urls th{
+  color: #fff;
+  font-weight: normal;
+  background-color: #b5b5b5;
+  border: 1px solid #979797;
+}
+
+#site-urls td{
+  border: 1px solid #dddddd;
+}
+
+#site-urls th, #site-urls td{
+  font-size: 12px;
+  padding: 15px 15px;
+  text-align: center;
+}
+
+#site-urls tr td:first-child{
+  text-align: left;
+}
+
+.fixed-width-cell{
+  width: 50px;
 }
