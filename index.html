@@ -41,7 +41,7 @@
                 <tbody>
                     <tr v-for="siteUrl in siteUrls">
                         <td>{{ siteUrl }}</td>
-                        <td class="fixed-width-cell" @click="deleteSiteUrl( true )">削除</td>
+                        <td class="fixed-width-cell" @click="deleteSiteUrl(siteUrl)">削除</td>
                     </tr>
                 </tbody>
             </table>

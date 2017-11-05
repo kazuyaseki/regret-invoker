@@ -88,6 +88,15 @@ var app  = new Vue({
           this.$data.siteUrlInput = "";
         });  
       }
+    },
+    deleteSiteUrl: function(hostName) {
+      loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
+        let urls = value[STORAGE_KEYS.siteUrl];
+        urls = urls.filter( (siteUrl) => { return siteUrl !== hostName } );
+        chrome.storage.sync.set({ [STORAGE_KEYS.siteUrl]: urls });
+
+        this.$data.siteUrls = urls;
+      });  
     }
   }
 });
