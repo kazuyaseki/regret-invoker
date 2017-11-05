@@ -27,40 +27,6 @@ Vue.component('sidebar-item', {
   },
 });
 
-var viewCountList = new Vue({
-  el: "#view-counts",
-  data: {
-    viewDatas: []
-  },
-  methods: {
-    renderCounts: function(viewData) {
-      let today_date = getTodayYYYYMMDDString();
-      for (let date in viewData) {
-        if (date.indexOf(today_date) >= 0) {
-          return viewData[date].length;
-        }
-      }
-    },
-    renderViewTimes: function(viewData) {
-      //TODO: こういう処理の共有みたいなののスマートな方法ないか調べる。
-      let today_date = getTodayYYYYMMDDString();
-      for (let date in viewData) {
-        if (date.indexOf(today_date) >= 0) {
-          let times = [];
-          for (let time of viewData[date]) {
-            times.push(new Date(time / 1000).toLocaleString());
-          }
-
-          return times;
-        }
-      }
-    }
-  }
-});
-loadDataFromChromeStorage(STORAGE_KEYS.data, value => {
-  viewCountList.viewDatas = value[STORAGE_KEYS.data];
-});
-
 var app  = new Vue({
   el: "#app-root",
   data: {
@@ -70,7 +36,8 @@ var app  = new Vue({
     ],
     currentScreenKey: SCREEN_KEYS.viewData,
     siteUrlInput: "",
-    siteUrls: []
+    siteUrls: [],
+    viewDatas: []
   },
   methods: {
     registerSiteUrl: function() {
@@ -101,6 +68,10 @@ var app  = new Vue({
   }
 });
 
+//非同期でChromeStorageから読み込み
 loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
   app.siteUrls = value[STORAGE_KEYS.siteUrl];
+});
+loadDataFromChromeStorage(STORAGE_KEYS.data, value => {
+  app.viewDatas = value[STORAGE_KEYS.data];
 });

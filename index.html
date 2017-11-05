@@ -12,16 +12,19 @@
     <h1>Regret Invoker</h1>
     <div id="app-root">
         <aside>
-            <sidebar-item v-for="title in pageTitles" :title="title" :is-active="currentScreenKey === title.key" @changeScreen="currentScreenKey = $event">
+            <sidebar-item 
+                v-for="title in pageTitles" 
+                :title="title" 
+                :is-active="currentScreenKey === title.key" 
+                @changeScreen="currentScreenKey = $event"
+            />
         </aside>
 
         <div v-if="currentScreenKey === 'viewData'" class="main">
-            <ul id="view-counts">
-                <h3>本日の閲覧回数</h3>
+            <ul id="view-datas">
                 <li v-for="(item, key) in viewDatas">
-                    {{ key }} - {{ renderCounts(item) }}
-                    <h4>閲覧した時間</h4>
-                    {{ renderViewTimes(item) }}
+                    <h3>{{ key }}</h3>
+                    <!-- TODO: タイムラインSVG作って埋め込む -->
                 </li>
             </ul>
         </div>
