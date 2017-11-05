@@ -3,7 +3,8 @@ export const SCREEN_KEYS = {
   siteUrl: 'siteUrl'
 };
 
-export const KEY_NAME_SUFFIX = '_times_msec';
+export const SESSION_LIMIT_MSEC = 60 * 10 * 1000;
+
 export const STORAGE_KEYS = {
   siteUrl: '#siteUrl',
   data: '#data',
