@@ -3,7 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
       app: __dirname + "/src/app.js",
-      measurement: __dirname + "/src/app.js",
+      measurement: __dirname + "/src/measurement.js",
       iconClicked: __dirname + "/src/iconClicked.js"
   },
   output: {
