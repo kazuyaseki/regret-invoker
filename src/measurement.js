@@ -35,25 +35,25 @@ function setDataTime(data, key, time_msec){
 
     chrome.storage.sync.get(STORAGE_KEYS.data, value => {
       let data = value[STORAGE_KEYS.data] ? value[STORAGE_KEYS.data] : {};
-      let hostName = document.location.hostname;
+      let hostname = document.location.hostname;
       let key = getTodayYYYYMMDDString();
       
       chrome.storage.sync.get(STORAGE_KEYS.lastVisitedHost, value => {
         let lastVisitedHost = value[STORAGE_KEYS.lastVisitedHost];
 
-        if(!lastVisitedHost && lastVisitedHost === hostName){
+        if(!lastVisitedHost && lastVisitedHost === hostname){
 
           // 前回のアクセスと同一ドメインの場合はセッション切れをしていないか確認をする
           let currentTimeMsec = Date.now();
-          if(currentTimeMsec - data[hostName][key].startTimeMsec > SESSION_LIMIT_MSEC){
-            setDataTime(data[hostName][key], "endTimeMsec", data[hostName][key].startTimeMsec + SESSION_LIMIT_MSEC);
-            data[hostName][key].push(viewDataFactory(currentTimeMsec, undefined));
+          if(currentTimeMsec - data[hostname][key].startTimeMsec > SESSION_LIMIT_MSEC){
+            setDataTime(data[hostname][key], "endTimeMsec", data[hostname][key].startTimeMsec + SESSION_LIMIT_MSEC);
+            data[hostname][key].push(viewDataFactory(currentTimeMsec, undefined));
           }
-        } else if(urls.indexOf(hostName) >= 0){
+        } else if(urls.indexOf(hostname) >= 0){
 
           // 計測対象サイト内の場合はタイムスタンプを登録
-          updateMeasurementData(data, hostName, key);
-          setDataTime(data[hostName][key], "startTimeMsec", Date.now());
+          updateMeasurementData(data, hostname, key);
+          setDataTime(data[hostname][key], "startTimeMsec", Date.now());
         } else if(data[lastVisitedHost] && data[lastVisitedHost][key]){
 
           // 訪問終了時刻の確定を行う
@@ -62,7 +62,7 @@ function setDataTime(data, key, time_msec){
           }
         }
 
-        chrome.storage.sync.set({ [STORAGE_KEYS.lastVisitedHost]: hostName });
+        chrome.storage.sync.set({ [STORAGE_KEYS.lastVisitedHost]: hostname });
         chrome.storage.sync.set({ [STORAGE_KEYS.data]: data });
         
       });

@@ -56,10 +56,10 @@ var app  = new Vue({
         });  
       }
     },
-    deleteSiteUrl: function(hostName) {
+    deleteSiteUrl: function(hostname) {
       loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
         let urls = value[STORAGE_KEYS.siteUrl];
-        urls = urls.filter( (siteUrl) => { return siteUrl !== hostName } );
+        urls = urls.filter( (siteUrl) => { return siteUrl !== hostname } );
         chrome.storage.sync.set({ [STORAGE_KEYS.siteUrl]: urls });
 
         this.$data.siteUrls = urls;
