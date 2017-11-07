@@ -22,9 +22,9 @@
 
         <div v-if="currentScreenKey === 'viewData'" class="main">
             <ul id="view-datas">
-                <li v-for="(item, key) in viewDatas">
+                <li v-for="(data, key) in viewDatas">
                     <h3>{{ key }}</h3>
-                    <!-- TODO: タイムラインSVG作って埋め込む -->
+                    <svg :id="key"></svg>
                 </li>
             </ul>
         </div>

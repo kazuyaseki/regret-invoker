@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 import { SCREEN_KEYS, STORAGE_KEYS } from "./constants/constants";
 import { getTodayYYYYMMDDString } from "./utils/util";
+import Timeline from "./utils/timeline";
 
 function loadDataFromChromeStorage(key, callback) {
   chrome.storage.sync.get(key, callback);
@@ -27,6 +28,7 @@ Vue.component('sidebar-item', {
   },
 });
 
+var timeline = new Timeline(Date.now());
 var app  = new Vue({
   el: "#app-root",
   data: {
@@ -38,6 +40,25 @@ var app  = new Vue({
     siteUrlInput: "",
     siteUrls: [],
     viewDatas: []
+  },
+  //Chrome storageからの読み込みは非同期なので、updatedフックで実行する
+  //暇があればviewDatas変更時のみにアップデートするようにする
+  updated: function () {
+    let key = getTodayYYYYMMDDString();
+    
+    for(let hostname in this.$data.viewDatas){
+      let data = this.$data.viewDatas[hostname];
+      let _data = [];
+      if(data[key]){
+        for(let d of data[key]){
+          _data.push({
+            timestamp: d.startTimeMsec,
+            viewTime: d.endTimeMsec ? Math.floor((d.endTimeMsec - d.startTimeMsec)/1000) : 1
+          })
+        }
+      }
+      timeline.draw(hostname, _data);
+    }
   },
   methods: {
     registerSiteUrl: function() {
