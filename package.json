@@ -6,12 +6,13 @@
   "author": "kazuya-seki <track613armory@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "d3": "^4.11.0",
     "prettier": "^1.7.4",
     "vuejs": "^1.0.29",
     "webpack": "^3.8.1"
   },
   "scripts": {
     "build": "webpack --config=webpack.config.js",
-    "build:dev": "webpack --config=webpack.config.js --display-error-details --watch"
+    "build:dev": "webpack --config=webpack.dev.config.js --display-error-details --watch"
   }
 }
