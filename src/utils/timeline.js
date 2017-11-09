@@ -1,11 +1,12 @@
 import * as d3 from 'd3';
 
+import { getOriginTimeDate } from "./util";
+
 export default function Timeline(currentTimeMsec){
 
   this.settings = {
     width: 560,
     height: 120,
-    barWidth: 12,
     margin:{
       top: 20, 
       bottom: 20, 
@@ -19,9 +20,9 @@ export default function Timeline(currentTimeMsec){
     }
   };
 
-  //scaleの定義
+  let startDate = getOriginTimeDate(currentTimeMsec);
   var xScale = d3.scaleTime()
-    .domain([new Date(1509980400 * 1000), new Date(1510066800 * 1000)])
+    .domain([startDate, new Date( startDate.getTime() + 24 * 60 * 60 * 1000 )])
     .rangeRound([0, this.settings.width]);
   var xAxis = d3.axisBottom()
     .scale(xScale);

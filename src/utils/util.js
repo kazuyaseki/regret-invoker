@@ -6,3 +6,9 @@ export function getTodayYYYYMMDDString() {
     ("00" + current_date.getDate()).slice(-2)
   );
 }
+
+export function getOriginTimeDate(timeMsec){
+  let date = new Date(timeMsec);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
