@@ -5,7 +5,7 @@ import { getTodayYYYYMMDDString } from "./utils/util";
 import Timeline from "./utils/timeline";
 
 function loadDataFromChromeStorage(key, callback) {
-  chrome.storage.sync.get(key, callback);
+  chrome.storage.local.get(key, callback);
 }
 
 function pageTitleFactory(key, content){
@@ -70,7 +70,7 @@ var app  = new Vue({
             urls = [];
           }
           urls.push(text);
-          chrome.storage.sync.set({ [STORAGE_KEYS.siteUrl]: urls });
+          chrome.storage.local.set({ [STORAGE_KEYS.siteUrl]: urls });
   
           this.$data.siteUrls = urls;
           this.$data.siteUrlInput = "";
@@ -81,7 +81,7 @@ var app  = new Vue({
       loadDataFromChromeStorage(STORAGE_KEYS.siteUrl, value => {
         let urls = value[STORAGE_KEYS.siteUrl];
         urls = urls.filter( (siteUrl) => { return siteUrl !== hostname } );
-        chrome.storage.sync.set({ [STORAGE_KEYS.siteUrl]: urls });
+        chrome.storage.local.set({ [STORAGE_KEYS.siteUrl]: urls });
 
         this.$data.siteUrls = urls;
       });  

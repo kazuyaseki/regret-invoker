@@ -29,16 +29,16 @@ function setDataTime(data, key, time_msec){
 }
 
 (function() {
-  chrome.storage.sync.get(STORAGE_KEYS.siteUrl, value => {
+  chrome.storage.local.get(STORAGE_KEYS.siteUrl, value => {
     let urls = value[STORAGE_KEYS.siteUrl];
     if (!urls || !Array.isArray(urls)) return;
 
-    chrome.storage.sync.get(STORAGE_KEYS.data, value => {
+    chrome.storage.local.get(STORAGE_KEYS.data, value => {
       let data = value[STORAGE_KEYS.data] ? value[STORAGE_KEYS.data] : {};
       let hostname = document.location.hostname;
       let key = getTodayYYYYMMDDString();
       
-      chrome.storage.sync.get(STORAGE_KEYS.lastVisitedHost, value => {
+      chrome.storage.local.get(STORAGE_KEYS.lastVisitedHost, value => {
         let lastVisitedHost = value[STORAGE_KEYS.lastVisitedHost];
 
         if(!lastVisitedHost && lastVisitedHost === hostname){
@@ -62,8 +62,8 @@ function setDataTime(data, key, time_msec){
           }
         }
 
-        chrome.storage.sync.set({ [STORAGE_KEYS.lastVisitedHost]: hostname });
-        chrome.storage.sync.set({ [STORAGE_KEYS.data]: data });
+        chrome.storage.local.set({ [STORAGE_KEYS.lastVisitedHost]: hostname });
+        chrome.storage.local.set({ [STORAGE_KEYS.data]: data });
         
       });
     });
