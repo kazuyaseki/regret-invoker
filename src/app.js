@@ -52,11 +52,12 @@ var app  = new Vue({
       if(data[key]){
         for(let d of data[key]){
           _data.push({
-            timestamp: d.startTimeMsec,
-            viewTime: d.endTimeMsec ? Math.floor((d.endTimeMsec - d.startTimeMsec)/1000) : 1
+            startTimeMsec: d.startTimeMsec,
+            viewTime: d.endTimeMsec ? Math.floor((d.endTimeMsec - d.startTimeMsec) / 1000) : 1
           })
         }
       }
+      
       timeline.draw(hostname, _data);
     }
   },

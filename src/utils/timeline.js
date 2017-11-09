@@ -57,7 +57,7 @@ export default function Timeline(currentTimeMsec){
       .attr('height', function(d) {
         return heightScale(d.viewTime);
       })
-      .attr('x', function(d) {return xScale(new Date(d.timestamp))})
+      .attr('x', function(d) {return xScale(new Date(d.startTimeMsec))})
       .attr('y', function(d) {return yScale(d.viewTime)})
       .attr('fill', this.settings.bar.fillColor)
       .attr('stroke', this.settings.bar.strokeColor);
